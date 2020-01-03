@@ -66,7 +66,7 @@ int Mandalorian::getFileCount()
 {
 	QDir *dir = new QDir(m_sInputPath);
 	QStringList filter;
-	filter << "*.png";
+	filter << "autosave*.png" << "autosave*.bmp" << "autosave*.jpg";
 	dir->setNameFilters(filter);
 	QList<QFileInfo> *fileInfo = new QList<QFileInfo>(dir->entryInfoList(filter));
 	return fileInfo->count();
@@ -84,7 +84,7 @@ void Mandalorian::on_m_pbtnScreenShot_clicked()
 	if (!ui.m_lineFilename->text().isEmpty())
 		name = ui.m_lineFilename->text();
 	else
-		name = QString::number(filenum + 1);
+		name = "autosave" + QString::number(filenum + 1);
 	picname = tr("%1/%2.%3").arg(m_sInputPath).arg(name).arg(suffix);
 	m_pixImage = screen->grabWindow(0, img_x, img_y, img_w, img_h);
 	ui.m_ImageLabel->setPixmap(m_pixImage.scaled(ui.m_ImageLabel->width(), ui.m_ImageLabel->height(), Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
@@ -106,7 +106,7 @@ void Mandalorian::on_m_pbtnDelImage_clicked()
 		return;
 	QDir* dir = new QDir(m_sInputPath);
 	QStringList filter;
-	filter << "*.png" << "*.jpg" << ".bmp";
+	filter << "*.png" << "*.jpg" << "*.bmp";
 	dir->setNameFilters(filter);                    
 	QList<QFileInfo>* fileInfo = new QList<QFileInfo>(dir->entryInfoList(filter));
 
